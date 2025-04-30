@@ -16,6 +16,14 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
+      - uses: getgauge/setup-gauge@master
+        with:
+          gauge-version: '1.6.14'
+      - name: install Gauge plugins manually for compatibility reason
+        run: |
+          gauge install java -v 0.11.3
+          gauge install json-report -v 0.4.0
+
       - name: Build with Maven
         run: mvn -B package --file pom.xml
       - name: Run Gauge Test
